@@ -1,14 +1,10 @@
-import React, { Component, PropTypes, } from 'react';
+import React, { Component } from 'react';
 import {
-    AppRegistry,
-    StyleSheet,
-    Text,
-    View,
-    WebView,
-    Image,
-    Dimensions
-} from 'react-native';
+    Dimensions, StyleSheet,
 
+    View
+} from 'react-native';
+import { WebView } from 'react-native-webview';
 const win = Dimensions.get('window');
 class ChartWeb extends Component {
     constructor(props){
@@ -79,9 +75,10 @@ class ChartWeb extends Component {
         return (
           <View style={this.props.style}>
               <WebView
-                  onLayout={this.reRenderWebView}
+                 
+                  onLayout={this.reRenderWebView.bind(this)}
                   style={styles.full}
-                  source={{ html: concatHTML, baseUrl: 'web/' }}
+                  source={Platform.OS == 'ios' ? { html: concatHTML } : { html: concatHTML, baseUrl: 'web/' }}
                   javaScriptEnabled={true}
                   domStorageEnabled={true}
                   scalesPageToFit={true}
